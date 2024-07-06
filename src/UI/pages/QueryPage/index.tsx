@@ -25,12 +25,13 @@ function QueryPage(props: Props) {
 
   const timeoutSeconds = 3;
 
-  let timeOUt = useRef<NodeJS.Timeout | null>(null);
+  let timeOutElement = useRef<NodeJS.Timeout | null>(null);
 
   const queryClient = useQueryClient();
 
   const handleSubmitValue = (value: InputProps) => {
     console.log("value", value);
+    alert(`email: ${value.email}, password: ${value.password}`);
   };
 
   const mutation = useMutation({
@@ -38,10 +39,10 @@ function QueryPage(props: Props) {
       // console.log("mutation", mutation);
       // console.log("ref.current", ref.current);
 
-      if (timeOUt.current) {
-        clearTimeout(timeOUt.current);
+      if (timeOutElement.current) {
+        clearTimeout(timeOutElement.current);
       }
-      timeOUt.current = setTimeout(() => {
+      timeOutElement.current = setTimeout(() => {
         ref.current = true;
       }, timeoutSeconds * 1000);
 
@@ -82,8 +83,8 @@ function QueryPage(props: Props) {
     //   .max(10),
     password: z
       .string()
-      .min(10, { message: "Password is too short" })
-      .max(20, { message: "Password is too long" }),
+      .min(10, { message: "Password quá ngắn" })
+      .max(20, { message: "Password quá dài" }),
     confirmPassword: z.string(),
   });
   // .refine((data) => data.password === data.confirmPassword, {
@@ -99,15 +100,15 @@ function QueryPage(props: Props) {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "email@gmail.com",
-      password: "confirmPassword331",
+      email: "",
+      password: "",
       confirmPassword: "confirmPassword",
     },
     resolver: zodResolver(UserSchema),
   });
   const onSubmit: SubmitHandler<InputProps> = (data, eg) => {
     // console.log("data", data);
-    console.log("eg", eg);
+    // console.log("eg", eg);
     mutation.mutate(data);
   };
   return (
@@ -128,6 +129,9 @@ function QueryPage(props: Props) {
         <div className="pageWrapper">QueryPage</div>
         /* "handleSubmit 33" will validate your inputs before invoking
         "onSubmit" */
+        <div>
+          /* sau {timeoutSeconds} giây mới submit lại được để tránh bị lặp*/
+        </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* register your input into the hook by invoking the "register" function */}
           <input defaultValue="test" {...register("email")} />

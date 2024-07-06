@@ -17,10 +17,20 @@ function HeaderContainer(props: Props) {
       <div>
         <div>
           <NavLink
+            to={UrlConfig.HOME}
+            title="Trang chủ"
+            className={(state) => {
+              return state.isActive ? "active" : "";
+            }}
+          >
+            HOME
+          </NavLink>
+        </div>
+        <div>
+          <NavLink
             to={UrlConfig.customer}
             title="customer"
             className={(state) => {
-              console.log("state", state);
               return state.isActive ? "active" : "";
             }}
           >
@@ -32,7 +42,6 @@ function HeaderContainer(props: Props) {
             to={UrlConfig.form}
             title="Form"
             className={(state) => {
-              console.log("state", state);
               return state.isActive ? "active" : "";
             }}
           >
@@ -44,7 +53,6 @@ function HeaderContainer(props: Props) {
             to={UrlConfig.reactQuery}
             title="reactQuery"
             className={(state) => {
-              console.log("state", state);
               return state.isActive ? "active" : "";
             }}
           >
