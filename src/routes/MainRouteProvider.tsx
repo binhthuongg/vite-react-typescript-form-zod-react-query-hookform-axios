@@ -153,9 +153,9 @@ const router = createBrowserRouter(
   )
 );
 
-function MainRoute() {
+function MainRouteProvider() {
   return <RouterProvider router={router} />;
   // return <div>ggg</div>;
 }
 
-export default MainRoute;
+export default MainRouteProvider;

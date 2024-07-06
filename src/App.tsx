@@ -5,7 +5,7 @@ import SplashScreen from "./UI/pages/Splash";
 import store from "base/redux/store";
 import { Provider } from "react-redux";
 import { createGlobalStyle } from "styled-components";
-import MainRoute from "./routes/MainRoute";
+import MainRoute from "./routes/MainRouteProvider";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "UI/pages/ErrorFallback";
 

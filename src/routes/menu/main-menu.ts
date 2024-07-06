@@ -11,7 +11,7 @@ const mainMenu: Array<RouteMenu> = [
     title: "Tổng quan",
     icon: PaymentMethodsIcon,
     lazy: async () => {
-      const Page = await import("UI/pages/NotFound");
+      const Page = await import("UI/pages/QueryPage");
       return { Component: Page.default };
     },
     key: UrlConfig.HOME,
