@@ -4,7 +4,7 @@ import { useLoaderData } from "react-router-dom";
 import { RouteMenu } from "routes/menu/route.model";
 import AuthWrapper from "./AuthWrapper";
 
-type Props = {
+export type Props = {
   component: any;
 };
 

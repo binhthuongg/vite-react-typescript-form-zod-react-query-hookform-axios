@@ -1,8 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
-
 export abstract class BaseEntity<T> {
-  protected readonly id: string;
-  constructor(props: T, id?: string) {
-    this.id = id || uuidv4();
+  protected readonly id: number;
+  constructor(props: T, id?: number) {
+    this.id = id || new Date().getTime();
   }
 }

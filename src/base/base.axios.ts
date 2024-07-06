@@ -1,9 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { ACCOUNT_CODE_LOCAL_STORAGE } from "utils/LocalStorageUtils";
 import { AppConfig } from "../configs/app.config";
 import { HttpStatus } from "../configs/http-status.config";
-import { showError } from "../utils/ToastUtils";
-import { getBearerToken } from "./auth/oidc/oidc.utils";
 
 const errorHandler = (error: any) => {
   switch (error.response?.status) {
@@ -21,27 +18,10 @@ const errorHandler = (error: any) => {
 
 const handleOldError = (response: AxiosResponse) => {
   // response cũ mọi thứ đều trả về 200
-  switch (response.data.code) {
-    case HttpStatus.BAD_GATEWAY:
-      showError(
-        "Hệ thống đang gián đoạn, vui lòng thử lại sau 5 phút hoặc liên hệ với IT để được hỗ trợ kịp thời."
-      );
-      return response;
-    case 40300000:
-      showError(
-        "Bạn không đủ quyền truy cập, vui lòng liên hệ với IT để được cấp quyền."
-      );
-      return response;
-    default:
-      break;
-  }
 };
 
 const handleUnauthorized = (error: any) => {
   if (error.response.status === 403) {
-    showError(
-      "Bạn không đủ quyền truy cập, vui lòng liên hệ với IT để được cấp quyền."
-    );
   }
 };
 
@@ -61,21 +41,14 @@ export function getAxiosBase(
   // };
 
   axiosInstance.interceptors.request.use(
-    function (request: AxiosRequestConfig) {
-      console.log("oidcUtils.getBearerToken()", getBearerToken());
-      if (getBearerToken() != null) {
-        request.headers["Authorization"] = getBearerToken();
-      }
-      // thêm version git commit để check xem user có update code mới nhất ko
-      request.headers["X-Client-Git-Version"] = `${
-        process.env.REACT_APP_GIT_COMMIT_HASH
-          ? process.env.REACT_APP_GIT_COMMIT_HASH
-          : "no-git-commit-hash"
-      }`;
-      // thêm user code
-      const accountCode = localStorage.getItem(ACCOUNT_CODE_LOCAL_STORAGE);
-      if (accountCode) {
-        request.headers["user_code"] = accountCode;
+    function (request) {
+      if (request.headers) {
+        // thêm version git commit để check xem user có update code mới nhất ko
+        request.headers["X-Client-Git-Version"] = `${
+          process.env.REACT_APP_GIT_COMMIT_HASH
+            ? process.env.REACT_APP_GIT_COMMIT_HASH
+            : "no-git-commit-hash"
+        }`;
       }
       return request;
     },

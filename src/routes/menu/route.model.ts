@@ -1,5 +1,6 @@
 import { BaseObject } from "base/base.model";
-import React from "react";
+import React, { ReactNode } from "react";
+import { LazyRouteFunction, NonIndexRouteObject } from "react-router-dom";
 
 export interface RouteMenu {
   fullUrl?: string;
@@ -13,9 +14,7 @@ export interface RouteMenu {
   icon: string;
   key: string;
   pathIgnore?: Array<string>;
-  lazy: (props?: any) => Promise<{
-    Component: (props: any) => JSX.Element;
-  }>;
+  lazy: LazyRouteFunction<NonIndexRouteObject>;
   showMenuThird?: boolean;
   permissions?: Array<string>;
   activeLink?: Array<string>;

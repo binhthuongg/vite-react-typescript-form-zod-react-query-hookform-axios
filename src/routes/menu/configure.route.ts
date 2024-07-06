@@ -1,8 +1,11 @@
 import { CUSTOMER_PERMISSION } from "configs/permissions/customer.permission";
 import React from "react";
 import { RouteMenu } from "./route.model";
+import { LazyRouteFunction, NonIndexRouteObject } from "react-router-dom";
 
-const ExamplePage = React.lazy(() => import("UI/pages/ExamplePage"));
+const ExamplePage = React.lazy(
+  () => import("UI/pages/ExamplePage")
+) as unknown as LazyRouteFunction<NonIndexRouteObject>;
 
 const configureRoutes: Array<RouteMenu> = [
   {

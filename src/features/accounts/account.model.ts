@@ -1,4 +1,3 @@
-import { ModuleAuthorize } from "base/auth/auth.models";
 import { BaseObject, BaseQuery, PageResponse } from "base/base.model";
 import { EnumGrantedLocationSelection } from "configs/enum.config";
 
@@ -87,29 +86,6 @@ export interface AccountBaseModel {
    * @deprecated
    */
   store_ids: Array<number>;
-}
-
-export interface MerchandiserSelectResponse
-  extends PageResponse<Pick<AccountResponse, "code" | "full_name">> {}
-export interface AccountResponse extends AccountBaseModel, BaseObject {
-  /**
-   * @deprecated
-   */
-  permissions: {
-    modules: Array<ModuleAuthorize>;
-  };
-  /**
-   * @deprecated
-   */
-  account_suppliers: any;
-  /**
-   * @deprecated
-   */
-  role_name: string;
-  /**
-   * @deprecated
-   */
-  temporary_password: boolean;
 }
 
 export interface DeliverPartnerResponse {
